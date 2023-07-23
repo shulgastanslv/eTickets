@@ -12,10 +12,10 @@ namespace eTickets.Controllers
         {
             _appDbContext = appDbContext;
         }
+
         public async Task<IActionResult> Index()
         {
             var data = await _appDbContext.Producers.ToListAsync();
-
             return View(data);
         }
     }
