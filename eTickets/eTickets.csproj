@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <Folder Include="Data\Enums\" />
+    <Folder Include="Data\Services\" />
     <Folder Include="Views\Actors\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="bootstrap" Version="5.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.9">

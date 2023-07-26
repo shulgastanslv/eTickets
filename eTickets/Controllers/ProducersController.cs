@@ -2,21 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace eTickets.Controllers
+namespace eTickets.Controllers;
+
+public class ProducersController : Controller
 {
-    public class ProducersController : Controller
+    private readonly AppDbContext _appDbContext;
+
+    public ProducersController(AppDbContext appDbContext)
     {
-        private readonly AppDbContext _appDbContext;
+        _appDbContext = appDbContext;
+    }
 
-        public ProducersController(AppDbContext appDbContext)
-        {
-            _appDbContext = appDbContext;
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            var data = await _appDbContext.Producers.ToListAsync();
-            return View(data);
-        }
+    public async Task<IActionResult> Index()
+    {
+        var data = await _appDbContext.Producers.ToListAsync();
+        return View(data);
     }
 }
