@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Data\Enums\" />
     <Folder Include="Data\Services\" />
-    <Folder Include="Views\Actors\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +19,29 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Actors\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Actors\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Actors\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Actors\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Actors\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Actors\Details.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Actors\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Actors\Delete.cshtml" />
   </ItemGroup>
 
 </Project>

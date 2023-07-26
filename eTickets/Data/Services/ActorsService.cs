@@ -17,23 +17,30 @@ public class ActorsService : IActorsService
         return data;
     }
 
-    public Actor GetById(int id)
+    public async Task<Actor> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var result = await _appDbContext.Actors.FirstOrDefaultAsync(i => i.Id == id);
+
+        return result;
     }
 
-    public void Add(Actor actor)
+    public async Task AddAsync(Actor actor)
     {
-        throw new NotImplementedException();
+        _appDbContext.Actors.Add(actor);
+        await _appDbContext.SaveChangesAsync();
     }
 
-    public Actor Update(int id, Actor newActor)
+    public async Task<Actor> UpdateAsync(int id, Actor newActor)
     {
-        throw new NotImplementedException();
+        _appDbContext.Update(newActor);
+        await _appDbContext.SaveChangesAsync();
+        return newActor;
     }
 
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var result = await _appDbContext.Actors.FirstOrDefaultAsync(i => i.Id == id);
+        _appDbContext.Actors.Remove(result);
+        await _appDbContext.SaveChangesAsync();
     }
 }
