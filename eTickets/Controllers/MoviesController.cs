@@ -1,21 +1,23 @@
 ﻿using eTickets.Data;
+using eTickets.Data.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTickets.Controllers;
 
 public class MoviesController : Controller
 {
-    private readonly AppDbContext _appDbContext;
+    private readonly IMoviesService _moviesService;
 
-    public MoviesController(AppDbContext appDbContext)
+    public MoviesController(IMoviesService moviesService)
     {
-        _appDbContext = appDbContext;
+        _moviesService = moviesService;
     }
 
     public async Task<IActionResult> Index()
     {
-        var data = await _appDbContext.Movies.Include(i => i.Cinema).ToListAsync();
+        var data = await _moviesService.GetAllAsync(i => i.Cinema);
         return View(data);
     }
 
@@ -23,4 +25,34 @@ public class MoviesController : Controller
     {
         throw new NotImplementedException();
     }
+
+    public async Task<IActionResult> Details(int id)
+    {
+        var movieDetails = await _moviesService.GetMovieByIdAsync(id);
+
+        return View(movieDetails);
+    }
+    public async Task<IActionResult> Create()
+    {
+        var movieDropdownData = await _moviesService.GetNewMovieDropdownsValues();
+
+        ViewBag.Cinemas = new SelectList(movieDropdownData.Cinemas, "Id", "Name");
+        ViewBag.Producers = new SelectList(movieDropdownData.Producers, "Id", "FullName");
+        ViewBag.Actors = new SelectList(movieDropdownData.Actors, "Id", "FullName");
+
+        return View();
+    }
+
+    public async Task<IActionResult> Create()
+    {
+        var movieDropdownData = await _moviesService.GetNewMovieDropdownsValues();
+
+        ViewBag.Cinemas = new SelectList(movieDropdownData.Cinemas, "Id", "Name");
+        ViewBag.Producers = new SelectList(movieDropdownData.Producers, "Id", "FullName");
+        ViewBag.Actors = new SelectList(movieDropdownData.Actors, "Id", "FullName");
+
+        return View();
+    }
+
+
 }

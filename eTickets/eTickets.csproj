@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Data\Enums\" />
     <Folder Include="Data\Base\" />
+    <Folder Include="Data\ViewModels\" />
     <Folder Include="Data\Services\" />
   </ItemGroup>
 
@@ -31,6 +32,9 @@
     <_ContentIncludedByDefault Remove="Views\Actors\Delete.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Actors\Details.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Actors\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Cinemas\Delete.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Cinemas\Edit.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Movies\Details.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Producers\Create.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Producers\Edit.cshtml" />
   </ItemGroup>
@@ -53,6 +57,18 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\Producers\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Cinemas\Delete.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Cinemas\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Movies\Details.cshtml" />
   </ItemGroup>
 
 </Project>

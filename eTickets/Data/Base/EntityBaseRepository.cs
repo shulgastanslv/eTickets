@@ -1,4 +1,5 @@
-﻿using eTickets.Models;
+﻿using System.Linq.Expressions;
+using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -14,6 +15,15 @@ public class EntityBaseRepository<T> : IEntityBaseRepository<T> where T : class,
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _appDbContext.Set<T>().ToListAsync();
+    }
+
+    public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] expressions)
+    {
+        IQueryable<T> query = _appDbContext.Set<T>();
+
+        query = expressions.Aggregate(query, (current, property) => current.Include(property));
+
+        return await query.ToListAsync();
     }
 
     public async Task<T> GetByIdAsync(int id)
