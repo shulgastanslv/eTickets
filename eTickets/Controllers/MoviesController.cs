@@ -1,5 +1,6 @@
 ﻿using eTickets.Data;
 using eTickets.Data.Services;
+using eTickets.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,18 @@ public class MoviesController : Controller
         return View(data);
     }
 
-    public IActionResult Filter()
+    public async Task<IActionResult> Filter(string searchString)
     {
-        throw new NotImplementedException();
+        var data = await _moviesService.GetAllAsync(i => i.Cinema);
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            var filteredResult = data.Where(i => i.Name.Contains(searchString) || i.Description.Contains(searchString)).ToList();
+
+            return View("Index", filteredResult);
+        }
+
+        return View("Index", data);
     }
 
     public async Task<IActionResult> Details(int id)
@@ -43,16 +53,22 @@ public class MoviesController : Controller
         return View();
     }
 
-    public async Task<IActionResult> Create()
+    [HttpPost]
+    public async Task<IActionResult> Create(NewMovieVM movie)
     {
+        await _moviesService.AddNewMovie(movie);
+
         var movieDropdownData = await _moviesService.GetNewMovieDropdownsValues();
 
         ViewBag.Cinemas = new SelectList(movieDropdownData.Cinemas, "Id", "Name");
         ViewBag.Producers = new SelectList(movieDropdownData.Producers, "Id", "FullName");
         ViewBag.Actors = new SelectList(movieDropdownData.Actors, "Id", "FullName");
 
-        return View();
+        return RedirectToAction(nameof(Index));
     }
+
+
+
 
 
 }
