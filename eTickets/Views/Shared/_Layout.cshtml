@@ -39,6 +39,18 @@
                         <input name="searchString" type="text" class="form-control mr-sm-2" placeholder="Search..." aria-label="Search...">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
+
+                    <ul class="navbar-nav">
+                        @await Component.InvokeAsync("ShoppingCartSummary")
+                    </ul>
+
+                    <div>
+                        <a asp-controller="Orders" asp-action="Index">
+                            <i class="bi bi-list"></i> Orders
+                        </a>
+                    </div>
+
+
                 </div>
             </div>
         </nav>

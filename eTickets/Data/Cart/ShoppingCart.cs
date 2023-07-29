@@ -15,6 +15,18 @@ public class ShoppingCart
         _context = context;
     }
 
+    public static ShoppingCart GetShoppingCart(IServiceProvider service)
+    {
+        ISession session = service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+
+        var context = service.GetService<AppDbContext>();
+
+        string cardId = session.GetString("CardId") ?? Guid.NewGuid().ToString();
+
+        session.SetString("CardId", cardId);
+
+        return new ShoppingCart(context) { ShoppingCartId = cardId };
+    }
 
     public void AddItemToCart(Movie movie)
     {
@@ -63,4 +75,14 @@ public class ShoppingCart
     }
 
     public double GetShoppingCartTotal() => _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Movie.Price * n.Amount).Sum();
+
+
+    public async Task ClearShoppingCartAsync()
+    {
+        var items = await _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).ToListAsync();
+
+        _context.ShoppingCartItems.RemoveRange(items);
+
+        await _context.SaveChangesAsync();
+    }
 }
