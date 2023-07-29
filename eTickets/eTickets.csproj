@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Data\Enums\" />
     <Folder Include="Data\Base\" />
+    <Folder Include="Data\Cart\" />
     <Folder Include="Data\ViewModels\" />
     <Folder Include="Data\Services\" />
   </ItemGroup>
